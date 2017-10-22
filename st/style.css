@@ -1,0 +1,41 @@
+html,
+body{
+    background: #effffd;
+    margin: 0;
+    padding: 0;
+}
+article{
+    margin: auto;
+    width: 600px;
+}
+fieldset,
+div{
+    width: 570px;
+    margin: 15px;
+    border: #6dc0ff 2px solid;
+}
+.x div:hover{
+    background: #c0fffd;
+}
+a{
+    text-decoration: none;
+    color: #3e4b4f;
+}
+.bac a{
+    display: inline-block;
+}
+h1{
+    text-align: center;
+}
+.nomarg{
+    margin: 0;
+}
+header{
+    border-bottom: #6dc0ff 1px solid;
+    background: #c0fffd;
+    padding: 15px;
+    margin: 0;
+}
+h3{
+    margin: 0;
+}

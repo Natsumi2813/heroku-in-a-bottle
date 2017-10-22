@@ -1,0 +1,16 @@
+{
+  "name": "Numer Flug Fyrirtæki Dagskrá",
+  "short_name": "NFFD",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "A simply Ice information app.",
+  "icons": [{
+    "src": "images/touch/homescreen48.png",
+    "sizes": "48x48",
+    "type": "image/png"
+  }],
+  "related_applications": [{
+    "platform": "web"
+  }]
+}
