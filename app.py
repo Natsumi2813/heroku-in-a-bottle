@@ -5,7 +5,7 @@ import bottle
 import json
 import urllib.request
 from sys import argv
-api = {'car': 'http://apis.is/car?number={}', 'company': 'http://apis.is/company?name={}'}
+api = {'car': 'http://apis.is/car?number={}', 'company': 'http://apis.is/company?{}={}'}
 links = {'car': 'Car', 'company': 'Company'}
 
 
@@ -43,8 +43,13 @@ def post_api(id):
     if len(list(bottle.request.forms)) > 0:
         try:
             item = [bottle.request.forms.get(b) for b in [x for x in bottle.request.forms]]
-            info = get_api_data(api[id].format(item[0]))
-            info['results'][0].update({'multi': True, 'id': id})
+            print(item)
+            if len(item) == 1:
+                info = get_api_data(api[id].format(item[0]))
+                info['results'][0].update({'multi': True, 'id': id})
+            else:
+                info = get_api_data(api[id].format(item[0], item[1]))
+                info['results'][0].update({'multi': True, 'id': id})
             return bottle.template('{}_p.html'.format(id), info['results'][0])
         except:
             print('EXCEPT:--')
@@ -58,4 +63,4 @@ def post_api(id):
 def static(path):
     return bottle.static_file(path, root='./st')
 
-bottle.run(host='0.0.0.0', port=argv[1], reloader=False)
+bottle.run(host='0.0.0.0', port=argv[0], reloader=False)
