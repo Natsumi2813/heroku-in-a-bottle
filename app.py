@@ -43,6 +43,8 @@ def post_api(id):
     if len(list(bottle.request.forms)) > 0:
         item = [bottle.request.forms.get(b) for b in [x for x in bottle.request.forms]]
         info = get_api_data(api[id].format(item[0]))
+        if 'error' in info.keys():
+            return bottle.template('error.html')
         info['results'][0].update({'multi': True, 'id': id})
         return bottle.template('{}_p.html'.format(id), info['results'][0])
     else:
