@@ -1,33 +1,56 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os
-from os import environ as env
-from sys import argv
-
 import bottle
-from bottle import default_app, request, route, response, get
+import json
+import urllib.request
+api = {'car': 'http://apis.is/car?number={}', 'company': 'http://apis.is/company?name={}'}
+links = {'car': 'Car', 'company': 'Company'}
 
-bottle.debug(True)
 
-@get('/')
+def get_api_data(api_):
+    with urllib.request.urlopen(api_) as dump:
+        data = json.loads(dump.read().decode())
+    return data
+
+
+@bottle.error(404)
+def error404(error):
+    return bottle.template('error.html')
+
+
+@bottle.route('/')
 def index():
-    response.content_type = 'text/plain; charset=utf-8'
-    ret =  'Hello world, I\'m %s!\n\n' % os.getpid()
-    ret += 'Request vars:\n'
-    for k, v in request.environ.iteritems():
-        if 'bottle.' in k:
-            continue
-        ret += '%s=%s\n' % (k, v)
+    return bottle.template('inde.html')
 
-    ret += '\n'
-    ret += 'Environment vars:\n'
 
-    for k, v in env.iteritems():
-        if 'bottle.' in k:
-            continue
-        ret += '%s=%s\n' % (k, v)
+@bottle.route('/404')
+def rais_404():
+    raise bottle.HTTPError(404)
 
-    return ret
+
+@bottle.get('/<id>')
+def get_api(id):
+    try:
+        return bottle.template('{}.html'.format(id), {'multi': False})
+    except:
+        raise bottle.HTTPError(404)
+
+
+@bottle.post('/<id>')
+def post_api(id):
+    if len(list(bottle.request.forms)) > 0:
+        item = [bottle.request.forms.get(b) for b in [x for x in bottle.request.forms]]
+        info = get_api_data(api[id].format(item[0]))
+        info['results'][0].update({'multi': True, 'id': id})
+        return bottle.template('{}_p.html'.format(id), info['results'][0])
+    else:
+        info = get_api_data(api[id])
+        info['results']['multi'] = False
+        return bottle.template('', info)
+
+@bottle.get('/s/<path:re:.*\.(png|jpg|json|css)>')
+def static(path):
+    return bottle.static_file(path, root='./st')
 
 bottle.run(host='0.0.0.0', port=argv[1])
