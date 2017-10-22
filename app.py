@@ -47,7 +47,8 @@ def post_api(id):
             info['results'][0].update({'multi': True, 'id': id})
             return bottle.template('{}_p.html'.format(id), info['results'][0])
         except:
-            return bottle.template('error.html')
+            print('EXCEPT:--')
+            return bottle.template('error.html', {'multi': True, 'id': id})
     else:
         info = get_api_data(api[id])
         info['results']['multi'] = False
