@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+    <meta charset="UTF-8">
+    <title>Car Info</title>
+    % include('style.html')
+</head>
+<body>
+% include('back.html')
+    <h1>Upplýsingar</h1>
+    <article>
+        <div>
+            <h2>Númer: {{number}}</h2>
+            <h3>Tegund: {{type}}</h3>
+            <h3>Undirtegund: {{subType}}</h3>
+            <h3>Litur: {{color}}</h3>
+            <h3>Verksmiðjunúmer: {{factoryNumber}}</h3>
+            <h3>Skráningarnúmer: {{registryNumber}}</h3>
+            <h3>Nýskráningardagur: {{registeredAt}}</h3>
+            <h3>Þyngd: {{weight}}</h3>
+            <h3>Staða: {{status}}</h3>
+            <h3>Mengun: {{pollution}}</h3>
+            <h3>Næsta skoðun: {{nextCheck}}</h3>
+        </div>
+    </article>
+</body>
+</html>
