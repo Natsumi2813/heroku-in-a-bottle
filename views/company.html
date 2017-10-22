@@ -2,9 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Fyrirtækja</title>
+    <title>Fyrirtækja leit</title>
+    % include('style.html')
+    %include('meta.html')
 </head>
 <body>
+% include('back.html')
+    <article>
+        <form action="/company" method="post">
+            <fieldset>
+                <legend><h2>Uppfletting í fyrirtækjaskrá</h2></legend>
+                <label><h3>Fyrirtæki:</h3></label><input type="text" name="company" placeholder="arion"><br>
+                <label>Tegund</label>
+                <select name="titi">
+                    <option value="name">Nafn</option>
+                    <option value="address">Heimilisfáng</option>
+                    <option value="socialnumber">Kennitala</option>
+                    <option value="vsknr">VSK númer</option>
+                </select>
+                <input type="submit" value="Senda">
+            </fieldset>
 
+        </form>
+
+    </article>
 </body>
 </html>
