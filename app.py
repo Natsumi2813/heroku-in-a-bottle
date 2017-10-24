@@ -43,7 +43,7 @@ def get_api(id):
 def post_api(id):
     if len(list(bottle.request.forms)) > 0:
         try:
-            item = [bottle.request.forms.get(b) for b in [x for x in bottle.request.forms]]
+            item = [bleach.clean(bottle.request.forms.get(b)) for b in [x for x in bottle.request.forms]]
             print(item)
             if len(item) == 1:
                 info = get_api_data(api[id].format(item[0]))
