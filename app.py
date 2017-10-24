@@ -4,6 +4,7 @@
 import bottle
 import json
 import urllib.request
+import bleach
 from sys import argv
 api = {'car': 'http://apis.is/car?number={}', 'company': 'http://apis.is/company?{}={}'}
 links = {'car': 'Car', 'company': 'Company'}
