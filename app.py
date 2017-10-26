@@ -5,27 +5,10 @@ import bottle
 import json
 import urllib.request
 import bleach
-import pymysql
 from sys import argv
 api = {'car': 'http://apis.is/car?number={}', 'company': 'http://apis.is/company?{}={}'}
 links = {'car': 'Car', 'company': 'Company'}
 
-conn = pymysql.connect(
-    host="tsuts.tskoli.is",
-    user='1308002620',
-    port=3306,
-    password='tskoli123',
-    database='1308002620_vef2Verk10'
-)
-
-cur = conn.cursor()
-
-def get_username_list():
-    cur.execute('SELECT user from user;')
-    listi = []
-    for i in cur:
-        listi.append(i[0])
-    return listi
 
 def get_api_data(api_):
     with urllib.request.urlopen(api_) as dump:
